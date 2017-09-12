@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     Button start, stop, reset;
     long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
     Handler handler;
-    int Seconds, Minutes, MilliSeconds;
+    int Seconds, Minutes, MilliSeconds, Hours;
     ListView listView;
     String[] ListElements = new String[] { };
     List<String> ListElementsArrayList;
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 Minutes = 0 ;
                 MilliSeconds = 0 ;
 
-                textView.setText("0:00");
+                textView.setText("0:0:00");
 
                 ListElementsArrayList.clear();
 
@@ -97,8 +97,9 @@ public class MainActivity extends AppCompatActivity {
             Seconds = (int) (UpdateTime / 1000);
             Minutes = Seconds / 60;
             Seconds = Seconds % 60;
+            Hours = Minutes / 60;
 
-            textView.setText("" + Minutes + ":"
+            textView.setText("" + Hours + ":" + Minutes + ":"
                 + String.format("%02d", Seconds));
 
             handler.postDelayed(this, 0);
