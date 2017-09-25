@@ -15,15 +15,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    TextView textView;
-    Button start, stop, reset;
+    TextView textView, textView69;
+    Button start, stop, reset, enter;
     long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
     Handler handler;
     int Seconds, Minutes, MilliSeconds, Hours;
-    ListView listView;
-    String[] ListElements = new String[] { };
-    List<String> ListElementsArrayList;
-    ArrayAdapter<String> adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -31,21 +28,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         textView = (TextView)findViewById(R.id.textView);
+        textView69 = (TextView)findViewById(R.id.textView69);
         start = (Button)findViewById(R.id.button);
         stop = (Button)findViewById(R.id.button2);
         reset = (Button)findViewById(R.id.button3);
-        listView = (ListView)findViewById(R.id.listview1);
+        enter = (Button)findViewById(R.id.button4);
 
         handler = new Handler();
 
-        ListElementsArrayList = new ArrayList<String>(Arrays.asList(ListElements));
-
-        adapter = new ArrayAdapter<String>(MainActivity.this,
-                android.R.layout.simple_list_item_1,
-                ListElementsArrayList
-        );
-
-        listView.setAdapter(adapter);
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,11 +71,16 @@ public class MainActivity extends AppCompatActivity {
                 Minutes = 0 ;
                 MilliSeconds = 0 ;
 
-                textView.setText("0:0:00");
+                textView.setText("0:0:0");
 
-                ListElementsArrayList.clear();
+            }
+        });
 
-                adapter.notifyDataSetChanged();
+        enter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textView69.setText(Long.toString(UpdateTime));
+
             }
         });
     }
@@ -100,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             Hours = Minutes / 60;
 
             textView.setText("" + Hours + ":" + Minutes + ":"
-                + String.format("%02d", Seconds));
+                + Seconds);
 
             handler.postDelayed(this, 0);
         }
